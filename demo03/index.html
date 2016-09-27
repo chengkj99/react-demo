@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+
+<!--  JSX  -->
+<script type="text/babel">
+//  组件名首字母需要大写
+    var HelloMessage=React.createClass({
+        render:function(){
+//  所有组件必须有自己的render方法，用于输出组件
+            return <h1>hello,{this.props.name}</h1>
+//  组件的属性可以在组件类的 this.props 对象上获取，比如 name 属性就可以通过 this.props.name
+        }
+    });
+    ReactDOM.render(
+            <HelloMessage name="john" />,
+            document.getElementById('example')
+    );
+</script>
+</body>
+</html>

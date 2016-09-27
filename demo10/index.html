@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+    <script src="../build/jquery.min.js"></script>
+</head>
+<body>
+<p>组件的数据来源，通常是通过 Ajax 请求从服务器获取，可以使用 componentDidMount 方法设置 Ajax 请求，等到请求成功，再用 this.setState 方法重新渲染 UI</p>
+<div id="example"></div>
+</body>
+<script type="text/babel">
+    var UserGist=React.createClass({
+        getInitialState:function () {
+            return {
+                url:'',
+                id:''
+            }
+        },
+        componentDidMount:function(){
+            var lastGist;
+            var that=this;
+            $.get(this.props.sourceUrl,function (data) {
+//                console.log(that)
+                lastGist = data[0];
+//                console.log(lastGist.url)
+//                console.log(lastGist.id)
+                that.setState({
+                    url:lastGist.url,
+                    id:lastGist.id
+                })
+            })
+        },
+        render:function(){
+            return (
+                    <div>
+                        <p>{this.state.id}是数据的地址ID.</p>
+                        <a href={this.state.url}>{this.state.url}是所属的URL.</a>.
+                    </div>
+            )
+        }
+    })
+    ReactDOM.render(
+            <UserGist sourceUrl="https://api.github.com/users/octocat/gists"></UserGist>,
+            document.getElementById('example')
+    )
+
+</script>
+
+</html>
